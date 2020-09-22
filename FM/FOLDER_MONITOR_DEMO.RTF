@@ -1,0 +1,40 @@
+{\rtf1\ansi\ansicpg1252\uc1 \deff0\deflang1033\deflangfe1033{\fonttbl{\f0\froman\fcharset0\fprq2{\*\panose 02020603050405020304}Times New Roman;}{\f19\froman\fcharset238\fprq2 Times New Roman CE;}{\f20\froman\fcharset204\fprq2 Times New Roman Cyr;}
+{\f22\froman\fcharset161\fprq2 Times New Roman Greek;}{\f23\froman\fcharset162\fprq2 Times New Roman Tur;}{\f24\froman\fcharset186\fprq2 Times New Roman Baltic;}}{\colortbl;\red0\green0\blue0;\red0\green0\blue255;\red0\green255\blue255;
+\red0\green255\blue0;\red255\green0\blue255;\red255\green0\blue0;\red255\green255\blue0;\red255\green255\blue255;\red0\green0\blue128;\red0\green128\blue128;\red0\green128\blue0;\red128\green0\blue128;\red128\green0\blue0;\red128\green128\blue0;
+\red128\green128\blue128;\red192\green192\blue192;}{\stylesheet{\widctlpar\adjustright \fs20\cgrid \snext0 Normal;}{\*\cs10 \additive Default Paragraph Font;}{\*\cs15 \additive \ul\cf2 \sbasedon10 Hyperlink;}}{\info{\title Folder Monitor Demo}
+{\author Darrell Koller}{\operator Darrell Koller}{\creatim\yr2002\mo5\dy24\hr22\min7}{\revtim\yr2002\mo5\dy28\hr10\min18}{\version5}{\edmins45}{\nofpages1}{\nofwords410}{\nofchars2341}{\*\company Home}{\nofcharsws0}{\vern113}}
+\widowctrl\ftnbj\aenddoc\noxlattoyen\expshrtn\noultrlspc\dntblnsbdb\nospaceforul\hyphcaps0\formshade\viewkind1\viewscale92\pgbrdrhead\pgbrdrfoot \fet0\sectd \linex0\endnhere\sectdefaultcl {\*\pnseclvl1\pnucrm\pnstart1\pnindent720\pnhang{\pntxta .}}
+{\*\pnseclvl2\pnucltr\pnstart1\pnindent720\pnhang{\pntxta .}}{\*\pnseclvl3\pndec\pnstart1\pnindent720\pnhang{\pntxta .}}{\*\pnseclvl4\pnlcltr\pnstart1\pnindent720\pnhang{\pntxta )}}{\*\pnseclvl5\pndec\pnstart1\pnindent720\pnhang{\pntxtb (}{\pntxta )}}
+{\*\pnseclvl6\pnlcltr\pnstart1\pnindent720\pnhang{\pntxtb (}{\pntxta )}}{\*\pnseclvl7\pnlcrm\pnstart1\pnindent720\pnhang{\pntxtb (}{\pntxta )}}{\*\pnseclvl8\pnlcltr\pnstart1\pnindent720\pnhang{\pntxtb (}{\pntxta )}}{\*\pnseclvl9
+\pnlcrm\pnstart1\pnindent720\pnhang{\pntxtb (}{\pntxta )}}\pard\plain \qc\widctlpar\adjustright \fs20\cgrid {\b\fs36\cf6 Folder Monitor Demo
+\par }\pard \widctlpar\adjustright {
+\par Folder Monitor is a class written in Visual Basic 6.0 that monitors changes made to files in a specified directory (folder) or directories (folders) and its subdirectories (subfolders).  It uses the Windows API functions WaitForMultipleObjects, FindFirstC
+hangeNotification, FindNextChangeNotification, and FindCloseChangeNotification.
+\par 
+\par FM can be used in several ways.  An FM object will raise an event when the content of a specified folder has changed.  This provides a mechanism to immediately handle added or modified files.  This may not always be desirable for performance reasons.
+
+\par 
+\par FM also exposes a property \ldblquote Changed\rdblquote  which can be checked periodically with a timer in the calling application.  Operations on modified files can thereby be handled in more of a ba
+tch mode.  ChangedList() can also be called within a timer.  If nothing has changed during the timer interval ChangedList() will return an empty array.  Internally ChangedList() checks the changed status of the object so there is no performance advantage 
+to checking the \ldblquote Changed\rdblquote  property.
+\par 
+\par FM sets up a dictionary object when monitoring is initialized which contains a list of all files contained in the monitored directories (subdirectories).  When the exposed method ChangedList() is called, a comparison is 
+made between the current contents of the monitored folders and the stored list.  The functions used for scanning the current folder contents are reasonably quick.  I experimented with a number of data structures for storing the base file list (AVL trees, 
+hash tables, etc.).  Surprisingly, the dictionary object outperformed any of the others.
+\par 
+\par FM is }{\b\ul not}{ a high performance monitoring solution, but is more than sufficient for most applications.  It has a number of limitations.   For example, it can only monito
+r up to 63 directories (and their subdirectories) simultaneously.  This is due to the limit of the number of threads that can be monitored via WaitForMultipleObjects.  Also, FM will sometimes raise multiple events for the same change.  This should not be 
+a problem if you are calling ChangedList().  The reason this happens is that the API calls generate multiple events for one file change (i.e. a file added to a directory will raise a FILE_NOTIFY_CHANGE_ATTRIBUTES 
+event as well as a FILE_NOTIFY_CHANGE_LAST_WRITE event).  As far as I can tell there is no way to identify the multiple events.  To avoid this problem use the "Attributes" property to disable notification of attribute changes.
+\par 
+\par FM has }{\b NOT}{ been extensively tested.  It is meant to be used for instructional purposes (i.e. I accept no responsibility for any losses incurred as a result of its use).  Hope you find it useful.  Send any comments/suggestions to the address below.
+
+\par 
+\par Darrell Koller
+\par }{\field{\*\fldinst { HYPERLINK "some_clever_name@hotmail.com" }{{\*\datafield 
+00d0c9ea79f9bace118c8200aa004ba90b02000000010000000303000000000000c00000000000004600001d000000736f6d655f636c657665725f6e616d6540686f746d61696c2e636f6d00ffffadde0000000000000000000000000000000000000000000000000000}}}{\fldrslt {\cs15\ul\cf2 some_clever_n
+{\*\bkmkstart _Hlt10344416}a{\*\bkmkstart _Hlt10344419}{\*\bkmkend _Hlt10344416}m{\*\bkmkend _Hlt10344419}e@hot{\*\bkmkstart _Hlt10344425}{\*\bkmkend _Hlt10344425}mail.com}}}{
+\par 
+\par 
+\par 
+\par }}
